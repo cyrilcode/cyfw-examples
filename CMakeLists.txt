@@ -18,3 +18,6 @@ target_link_libraries(02-shadertoy cyfw)
 
 add_executable(03-cube examples/03-cube.cpp)
 target_link_libraries(03-cube cyfw)
+
+add_executable(04-text examples/04-text.cpp)
+target_link_libraries(04-text cyfw)
