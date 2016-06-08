@@ -25,6 +25,7 @@ public:
         shader.bind(window);
         shader.setProjectionMatrix(camera.projectionMatrix());
         shader.setViewMatrix(camera.viewMatrix());
+        shader.setLightPosition(camera.getPosition());
         shader.drawCube();
     }
 
@@ -54,5 +55,5 @@ public:
 };
 
 int main() {
-    cy::run<MyApp>(640, 480, "a mini shadertoy");
+    cy::run<MyApp>(640, 480, "simple 3d cube");
 }
