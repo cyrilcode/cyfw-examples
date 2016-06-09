@@ -19,7 +19,7 @@ public:
     {
         window->setClearColor({0,0,0,1});
         gui.init(window);
-        ImGui::GetIO().FontGlobalScale = 2;
+        ImGui::GetIO().FontGlobalScale = 3;
         ImGuiStyle& style = ImGui::GetStyle();
         style.WindowRounding = 0;
         style.WindowPadding = {0, 0};
