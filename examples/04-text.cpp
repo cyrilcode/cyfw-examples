@@ -31,5 +31,5 @@ public:
 };
 
 int main() {
-    cy::run<MyApp>(640, 480, "testing text input");
+    cy::run<MyApp,FileLogger,logger::level::VERBOSE>(640, 480, "testing text input");
 }
