@@ -6,15 +6,15 @@ using namespace cy;
 
 class MyApp : public cy::App
 {
-    int width = 640;
-    int height = 480;
+    vec2i size;
     VideoGrabber grabber;
 
 public:
 
-    MyApp()
+    void setup()
     {
-        if (grabber.open(0, width, height) < 0)
+        size = window->getFramebufferSize();
+        if (grabber.open(0, size.x(), size.y()) < 0)
             throw "Failed to open capture device";
         if (grabber.start() < 0)
             throw "Failed to start capture device";
@@ -28,7 +28,7 @@ public:
     void draw()
     {
         grabber.update();
-        grabber.draw(width / 4, height / 4, width / 2, height / 2);
+        grabber.draw(size.x() / 4, size.y() / 4, size.x() / 2, size.y() / 2);
     }
 
     void resize(window::ResizeEvent e)

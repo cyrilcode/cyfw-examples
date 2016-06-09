@@ -7,7 +7,7 @@ add_subdirectory(cyfw)
 include_directories(${CYFW_INCLUDE_DIR})
 
 
-add_executable(00-hello examples/00-hello.cpp examples/05-video.cpp)
+add_executable(00-hello examples/00-hello.cpp)
 target_link_libraries(00-hello cyfw)
 
 add_executable(01-triangle examples/01-triangle.cpp)
