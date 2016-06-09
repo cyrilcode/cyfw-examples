@@ -27,6 +27,7 @@ public:
 
     void draw()
     {
+        window->clear();
         grabber.update();
         grabber.draw(size.x() / 4, size.y() / 4, size.x() / 2, size.y() / 2);
     }
