@@ -1,5 +1,5 @@
 #include <cyfw/main.h>
-
+#include <cyfw/Gui.h>
 
 using namespace std;
 using namespace cy;
