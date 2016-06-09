@@ -24,3 +24,6 @@ target_link_libraries(04-text cyfw)
 
 add_executable(05-video examples/05-video.cpp)
 target_link_libraries(05-video cyfw)
+
+add_executable(06-editor examples/06-editor.cpp)
+target_link_libraries(06-editor cyfw)
