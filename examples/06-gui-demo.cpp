@@ -28,5 +28,5 @@ public:
 };
 
 int main() {
-    cy::run<MyApp,ConsoleLogger>(640, 480, "testing text input");
+    cy::run<MyApp,ConsoleLogger>(640, 480, "testing text input", true);
 }
