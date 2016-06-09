@@ -17,7 +17,9 @@ public:
     {
         window->clear();
         gui.clear();
-        gui.demo();
+
+
+
         gui.draw();
     }
 
@@ -28,5 +30,5 @@ public:
 };
 
 int main() {
-    cy::run<MyApp,ConsoleLogger>(640, 480, "gui demo", true);
+    cy::run<MyApp,ConsoleLogger>(640, 480, "testing editor", true);
 }
