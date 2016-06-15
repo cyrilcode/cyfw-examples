@@ -26,10 +26,21 @@ public:
         shader.setProjectionMatrix(camera.projectionMatrix());
         shader.setViewMatrix(camera.viewMatrix());
         shader.setLightPosition(camera.getPosition());
-        shader.drawCube({0.5,0.25,1});
-        shader.move({1,1,0});
-        shader.setColor({1,0,0,1});
-        shader.drawCube({0.5,0.5,0.5});
+
+        quat4f r;
+        r = Eigen::AngleAxisf(math::PI / 5.0f, vec3f::UnitZ());
+
+        shader.scale({0.25,0.25,0.25});
+        for (int i = 0; i < 10; ++i)
+        {
+
+            shader.rotate(r);
+            shader.pushMatrix();
+            shader.move({3,0,0});
+            shader.drawCube();
+            shader.popMatrix();
+
+        }
     }
 
     void key(window::KeyEvent e)
