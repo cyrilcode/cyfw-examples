@@ -31,3 +31,6 @@ target_link_libraries(06-gui-demo cyfw)
 embed_resources(Fonts examples/resources/a-scp-r.ttf)
 add_executable(07-editor examples/07-editor.cpp ${Fonts})
 target_link_libraries(07-editor cyfw)
+
+add_executable(08-basic3d examples/08-basic3d.cpp)
+target_link_libraries(08-basic3d cyfw)
