@@ -34,3 +34,6 @@ target_link_libraries(07-editor cyfw)
 
 add_executable(08-basic3d examples/08-basic3d.cpp)
 target_link_libraries(08-basic3d cyfw)
+
+add_executable(09-more3d examples/09-more3d.cpp)
+target_link_libraries(09-more3d cyfw)
