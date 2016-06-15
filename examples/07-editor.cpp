@@ -1,5 +1,6 @@
 #include <cyfw/main.h>
 #include <cyfw/Gui.h>
+#include <Resource.h>
 
 using namespace std;
 using namespace cy;
@@ -9,17 +10,24 @@ class MyApp : public cy::App
     Gui gui;
     bool guiOpen;
     char text[1024*16];
+    bool escPressed;
+    ImFont* font1;
 public:
-    MyApp() {
+    MyApp() : escPressed{false} {
         char * t = "rotate\nbox\0";
         memcpy(text, t, 11);
+        Resource fontdata = LOAD_RESOURCE(a_scp_r_ttf);
+        auto font_cfg_template = ImFontConfig();
+        font_cfg_template.FontDataOwnedByAtlas = false;
+        font1 = ImGui::GetIO().Fonts->AddFontFromMemoryTTF(
+                (void*)fontdata.begin(), fontdata.size(), 32, &font_cfg_template);
     }
 
     void setup()
     {
+        window->closeOnEscapeKey(false);
         window->setClearColor({0,0,0,1});
         gui.init(window);
-        ImGui::GetIO().FontGlobalScale = 3;
         ImGuiStyle& style = ImGui::GetStyle();
         style.WindowRounding = 0;
         style.WindowPadding = {0, 0};
@@ -40,7 +48,6 @@ public:
 
     void doGui()
     {
-
         ImGui::SetNextWindowPos(ImVec2(10,10));
         ImGuiWindowFlags windowFlags =
                 ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize
@@ -50,16 +57,45 @@ public:
             ImGui::End();
             return;
         }
+        ImGui::PushFont(font1);
         vec2i dim = window->getWindowSize();
         ImGui::SetWindowSize(ImVec2(dim.x() - 20, dim.y() - 20));
 
         ImGui::InputTextMultiline("source", text, sizeof(text), ImVec2(-1.0f, -1.0f), 0);
-        ImGui::SetKeyboardFocusHere(-1);
 
+        if (escPressed) ImGui::OpenPopup("Quit?");
+        if (ImGui::BeginPopupModal("Quit?", NULL, ImGuiWindowFlags_AlwaysAutoResize|ImGuiWindowFlags_NoMove))
+        {
+            ImGui::SetWindowFontScale(1.0f);
+            ImGui::Text("Are you sure you want to quit?\n\n");
+            ImGui::Separator();
+
+            if (ImGui::Button("Quit", ImVec2(120,0))) {
+                escPressed = false;
+                window->quit();
+                ImGui::CloseCurrentPopup();
+            }
+            ImGui::SameLine();
+            if (ImGui::Button("Cancel", ImVec2(120,0))) {
+                escPressed = false;
+                ImGui::CloseCurrentPopup();
+            }
+            ImGui::EndPopup();
+        }
+        ImGui::PopFont();
         ImGui::End();
     }
 
-    void key(window::KeyEvent e) { gui.key(e); }
+    void key(window::KeyEvent e)
+    {
+        if (e.key == window::key::ESCAPE && e.action == window::action::PRESSED)
+        {
+            escPressed = true;
+        }
+        else {
+            gui.key(e);
+        }
+    }
     void scroll(window::ScrollEvent e) { gui.scroll(e); }
     void textInput(window::CharEvent e) { gui.character(e); }
     void mouseButton(window::MouseButtonEvent e ) { gui.mouse(e); }

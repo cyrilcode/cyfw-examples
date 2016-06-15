@@ -28,5 +28,6 @@ target_link_libraries(05-video cyfw)
 add_executable(06-gui-demo examples/06-gui-demo.cpp)
 target_link_libraries(06-gui-demo cyfw)
 
-add_executable(07-editor examples/07-editor.cpp)
+embed_resources(Fonts examples/resources/a-scp-r.ttf)
+add_executable(07-editor examples/07-editor.cpp ${Fonts})
 target_link_libraries(07-editor cyfw)
