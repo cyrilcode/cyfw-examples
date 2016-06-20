@@ -34,11 +34,12 @@ public:
         float maxAngle = math::PI * 7;
         float spiralRadius = 1;
         float height = 3;
+        float offsetT = cy::time();
 
         for (int s = 0; s < numSpheres; ++s)
         {
             float rel = s / (float)numSpheres;
-            float angle = rel * maxAngle;
+            float angle = (rel - offsetT) * maxAngle;
             float y = rel * height;
             float r = rel * spiralRadius * spiralRadius;
             vec3f offset{r * cos(angle), y, r * sin(angle)};
