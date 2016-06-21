@@ -126,9 +126,9 @@ class MyApp : public cy::App
     char text[1024*16];
 
 public:
-    MyApp() : dims{640, 480}, effect{640, 480, " void mainImage(out vec4 c, in vec2 p){\nc = vec4(1,0,0,1);\n}\n"} {
+    MyApp() : dims{640, 480}, effect{640, 480, "void mainImage(out vec4 c, in vec2 p){\n  c = vec4(1,0,0,1);\n}\n"} {
 
-        char * t = "void mainImage(out vec4 c, in vec2 p){\nc = vec4(1,0,0,1);\n}\n\0";
+        char * t = "void mainImage(out vec4 c, in vec2 p){\n  c = vec4(1,0,0,1);\n}\n\0";
         memcpy(text, t, 62);
     }
 
@@ -152,7 +152,7 @@ public:
         {
             try
             {
-                effect = Effect{dims[0], dims[1], " " + string(text)};
+                effect = Effect{dims[0], dims[1], string(text)};
             }
             catch (string err)
             {
@@ -163,7 +163,7 @@ public:
         effect.update();
         ImGui::Image((void*)effect.texture, ImVec2(320, (320.0f / effect.width) * effect.height));
 
-        ImGui::InputTextMultiline("source", text, sizeof(text), ImVec2(-1.0f, -1.0f), 0);
+        ImGui::InputTextMultiline("##source", text, sizeof(text), ImVec2(-1.0f, -1.0f), 0);
 
         gui.draw();
     }
