@@ -11,9 +11,10 @@ class MyApp : public cy::App
     bool guiOpen;
     char text[1024*16];
     bool escPressed;
+    bool shouldQuit;
     ImFont* font1;
 public:
-    MyApp() : escPressed{false} {
+    MyApp() : escPressed{false}, shouldQuit{false} {
         char * t = "rotate\nbox\0";
         memcpy(text, t, 11);
         Resource fontdata = LOAD_RESOURCE(a_scp_r_ttf);
@@ -72,12 +73,18 @@ public:
 
             if (ImGui::Button("Quit", ImVec2(120,0))) {
                 escPressed = false;
+                shouldQuit = true;
                 window->quit();
                 ImGui::CloseCurrentPopup();
             }
             ImGui::SameLine();
             if (ImGui::Button("Cancel", ImVec2(120,0))) {
                 escPressed = false;
+                window->quit(false);
+                ImGui::CloseCurrentPopup();
+            }
+            if (ImGui::IsKeyPressed(ImGuiKey_Escape))
+            {
                 ImGui::CloseCurrentPopup();
             }
             ImGui::EndPopup();
@@ -86,15 +93,19 @@ public:
         ImGui::End();
     }
 
+    bool quit()
+    {
+        escPressed = true;
+        return shouldQuit;
+    }
+
     void key(window::KeyEvent e)
     {
         if (e.key == window::key::ESCAPE && e.action == window::action::PRESSED)
         {
             escPressed = true;
         }
-        else {
-            gui.key(e);
-        }
+        gui.key(e);
     }
     void scroll(window::ScrollEvent e) { gui.scroll(e); }
     void textInput(window::CharEvent e) { gui.character(e); }
