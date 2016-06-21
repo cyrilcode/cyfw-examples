@@ -37,3 +37,6 @@ target_link_libraries(08-basic3d cyfw)
 
 add_executable(09-more3d examples/09-more3d.cpp)
 target_link_libraries(09-more3d cyfw)
+
+add_executable(10-multieditor examples/10-multieditor.cpp ${Fonts})
+target_link_libraries(10-multieditor cyfw)
